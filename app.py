@@ -2,7 +2,7 @@ import streamlit as st
 from pdf_processing import get_pdf_chunks, get_relevant_context
 from gemini_api import get_gemini_response
 
-st.set_page_config(page_title="PDF Chatbot", page_icon="📄", layout="centered")
+st.set_page_config(page_title="Chatbot for pdf", page_icon="📄", layout="centered")
 st.markdown("""
     <style>
         .upload-box {
@@ -20,7 +20,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.title("📄 PDF Chatbot")
+st.title("📄 CHAT For PDF")
 
 # Session state
 if "messages" not in st.session_state:
@@ -76,3 +76,4 @@ if user_question := st.chat_input("Ask a question..."):
                     "role": "assistant",
                     "content": "❌ I couldn't find relevant information in the document."
                 })
+
