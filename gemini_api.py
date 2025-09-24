@@ -10,10 +10,11 @@ if not api_key:
 
 genai.configure(api_key=api_key)
 
-def get_gemini_response(prompt: str) -> str:
+def response(prompt: str) -> str:
     """Get response from Gemini API"""
     try:
         model = genai.GenerativeModel('gemini-1.5-flash-latest')
         return model.generate_content(prompt).text
     except Exception as e:
         raise RuntimeError(f"Gemini API call failed: {e}")
+
