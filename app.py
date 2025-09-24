@@ -1,6 +1,6 @@
 import streamlit as st
-from pdf_processing import get_pdf_chunks, get_relevant_context
-from gemini_api import get_gemini_response
+from pdf_processing import context, Chunking
+from gemini_api import response
 
 st.set_page_config(page_title="Chatbot for pdf", page_icon="📄", layout="centered")
 st.markdown("""
@@ -34,7 +34,7 @@ uploaded_file = st.file_uploader("", type="pdf", label_visibility="collapsed")
 
 if uploaded_file and not st.session_state.document_chunks:
     with st.spinner("Processing PDF..."):
-        st.session_state.document_chunks = get_pdf_chunks(uploaded_file)
+        st.session_state.document_chunks = Chunking(uploaded_file)
         st.success(f"📄 {uploaded_file.name} — Pages: {len(st.session_state.document_chunks)} (processed successfully)")
         st.session_state.messages.append({
             "role": "assistant", "content": "✅ PDF uploaded successfully! You can now ask me questions about it."
@@ -53,7 +53,7 @@ if user_question := st.chat_input("Ask a question..."):
 
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
-            context = get_relevant_context(user_question, st.session_state.document_chunks)
+            context = context(user_question, st.session_state.document_chunks)
             if context:
                 prompt = f"""
                 You are a helpful AI assistant. Answer based only on the document context.
@@ -65,7 +65,7 @@ if user_question := st.chat_input("Ask a question..."):
                 Answer:
                 """
                 try:
-                    response = get_gemini_response(prompt)
+                    response = response(prompt)
                     st.markdown(response)
                     st.session_state.messages.append({"role": "assistant", "content": response})
                 except Exception as e:
@@ -76,5 +76,6 @@ if user_question := st.chat_input("Ask a question..."):
                     "role": "assistant",
                     "content": "❌ I couldn't find relevant information in the document."
                 })
+
 
 
