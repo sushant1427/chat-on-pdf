@@ -1,0 +1,6 @@
+streamlit
+pymupdf
+langchain-text-splitters
+google-generativeai
+python-dotenv
+faiss-cpu
