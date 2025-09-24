@@ -3,4 +3,10 @@ pymupdf
 langchain-text-splitters
 google-generativeai
 python-dotenv
+
 faiss-cpu
+streamlit
+PyMuPDF
+python-dotenv
+google-generativeai
+langchain
