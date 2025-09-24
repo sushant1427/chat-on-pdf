@@ -1,7 +1,7 @@
 import fitz  # PyMuPDF
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-def get_pdf_chunks(uploaded_file):
+def Chunking(uploaded_file):
     """Extract text from PDF and split into chunks"""
     pdf_document = fitz.open(stream=uploaded_file.read(), filetype="pdf")
     full_text = ""
@@ -16,7 +16,7 @@ def get_pdf_chunks(uploaded_file):
     return text_splitter.split_text(full_text)
 
 
-def get_relevant_context(question, chunks, top_k=3):
+def context(question, chunks, top_k=3):
     """Retrieve relevant PDF chunks for a given question"""
     relevant = []
     q_words = set(question.lower().split())
@@ -25,3 +25,4 @@ def get_relevant_context(question, chunks, top_k=3):
         if not q_words.isdisjoint(c_words):
             relevant.append(chunk)
     return "\n\n".join(relevant[:top_k])
+
