@@ -20,7 +20,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.title("📄 CHAT For PDF")
+st.title("📄 CHATBOT For PDF")
 
 # Session state
 if "messages" not in st.session_state:
@@ -76,4 +76,5 @@ if user_question := st.chat_input("Ask a question..."):
                     "role": "assistant",
                     "content": "❌ I couldn't find relevant information in the document."
                 })
+
 
